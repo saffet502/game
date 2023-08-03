@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematik Game</title>
+</head>
+<style>
+    body{
+        color: #ffff;
+        background: #5f250375
+    }
+    #game{
+        width: 400px;
+        background: #050000d5;
+        padding: 18px;
+        text-align: center;
+        margin: auto;
+    }
+    h1{
+        margin: 0 0 18px 0;
+        border: solid;
+        padding: 5px;      
+    }
+    span{
+        font-size: 125%;
+        padding: 12px;
+    }
+    #result{
+        width: 90px;
+        padding: 3px;
+    }
+    #answer{
+        margin-top: 10px;
+        padding: 4px;
+        border: none;
+        background: #0e7c97;
+        color: #ffff;
+    }
+    #answer:hover{
+        background: #919e7275;
+    }
+    #True, #False{
+        font-size: 125%;
+        margin-top: 10px;
+        padding: 10px;
+        display: inline-block;
+    }
+    #True{
+        background: hsl(120, 85%, 43%);
+    }
+    #False{
+        background: #b40a0ad5;
+    }
+</style>
+<body>
+    <div id="game">
+        <h1>Arithmetik Operationen</h1>
+        <span id="Number1">0</span>
+        <span id="Operator">*</span>
+        <span id="Number2">0</span>
+        <span>=</span>
+        <input type="text" id="result">
+        <input type="button" id="answer" value="Rechnen">
+        <div style="clear: both"></div>
+        <div id="True">0</div>
+        <div id="False">0</div>
+        <script>
+            var Number1, Number2, Operator, result, answer, True=0, False=0;
+            //Mit Hilfe getElementById Method wird HTML Objekte erreicht
+            Number1 = document.getElementById('Number1');
+            Number2 = document.getElementById('Number2');
+            Operator = document.getElementById('Operator');
+            result = document.getElementById('result');
+            answer = document.getElementById('answer');
+            True = document.getElementById('True');
+            False = document.getElementById('False');
+
+            //Eine Method, die die Randomzahlen produzieren
+            function RandomNumber(min, max){
+                var number = Math.floor(Math.random()*(max-min))+min;
+                return number;
+            }
+            //Nach der alten Frage wird eine neue Frage erstellt
+            function newQuestion(){
+                  var operation = ["+","-","*","/"];
+            Operator.textContent = operation[RandomNumber(0,4)];
+            Number1.textContent = RandomNumber(0,50);
+            Number2.textContent = RandomNumber(0,50);
+            if(Operator.textContent=="/"){
+                while(true){
+                    Number2.textContent = RandomNumber(0,50);         
+                    if(Number1.textContent%Number2.textContent==0){
+                        break;
+            }
+                }
+        
+            }
+            }
+          
+           window.onload = function(){
+            newQuestion();
+           }
+           answer.onclick = function(){
+            var ans, n1, n2;
+            n1 = Number (Number1.textContent);
+            n2 = Number (Number2.textContent);
+            switch(Operator.textContent){
+                case '+': ans = n1 + n2;
+                break;
+                case '-': ans = n1 - n2;
+                break;
+                case '*': ans = n1 * n2;
+                break;
+                case '/': ans = n1 / n2;
+                break;
+                default: break;
+            }
+            if(result.value == ans){
+                True.textContent = Number(True.textContent)+1;
+            }
+            else{
+                False.textContent = Number(False.textContent)+1;
+            }
+            newQuestion();
+           }
+        </script>
+    </div>
+</body>
+</html>
